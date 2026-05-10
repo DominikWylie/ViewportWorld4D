@@ -32,11 +32,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category="Cube")
 	UNiagaraSystem* NiagaraSystemPoints;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Cube")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cube")
 	TArray<UNiagaraComponent*> Points;
 
 	TArray<FVector> PointPositions;
 
 	UPROPERTY(EditInstanceOnly,BlueprintReadWrite, Category="Cube")
 	float Unit = 100.f;
+	
 };

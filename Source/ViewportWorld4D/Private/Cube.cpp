@@ -2,6 +2,9 @@
 
 
 #include "Cube.h"
+#include "Matrix.h"
+
+//#include "Math/Matrix.h"
 
 ACube::ACube()
 {
@@ -12,9 +15,9 @@ ACube::ACube()
 
 	PointPositions = {
 		FVector(-Unit, -Unit, 0),
-		FVector(Unit, -Unit, 0),
-		FVector(Unit, Unit, 0),
-		FVector(-Unit, Unit, 0)
+		FVector(Unit, -Unit, 50),
+		FVector(Unit, Unit, 100),
+		FVector(-Unit, Unit, 150)
 	};
 
 	for (uint8 i = 0; i < 4; i++)
@@ -30,6 +33,7 @@ ACube::ACube()
 	// 	Wire[i] = CreateDefaultSubobject<UNiagaraComponent>(TEXT("Wire"));
 	// 	Wire[i]->SetupAttachment(RootComponent);
 	// }
+
 }
 
 void ACube::BeginPlay()
@@ -37,6 +41,13 @@ void ACube::BeginPlay()
 	Super::BeginPlay();
 
 	InitCubePositions();
+
+	for (uint8 i = 0; i < Points.Num(); i++)
+	{
+		Points[i]->SetVariableVec3(FName("User.Particles_Position"), (ProjectionMatrix2D() * PointPositions[i]));
+	}
+
+	
 }
 
 void ACube::InitCubePositions()
