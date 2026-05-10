@@ -25,6 +25,8 @@ public:
 	ACube();
 
 	void InitCubePositions();
+
+	virtual void Tick(float DeltaTime) override;
 	
 	// UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "VFX")
 	// TArray<UNiagaraComponent*> Wire;
@@ -39,5 +41,7 @@ public:
 
 	UPROPERTY(EditInstanceOnly,BlueprintReadWrite, Category="Cube")
 	float Unit = 100.f;
-	
+
+	float RotationSpeed = 10.f;
+	float Degrees = 0.f;
 };

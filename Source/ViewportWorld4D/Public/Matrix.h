@@ -29,9 +29,17 @@ struct ProjectionMatrix2D
 	FVector operator* (const FVector& Vec) const;
 };
 
-struct RotationMatrix2D
+struct RotationMatrixZ2D
 {
+private:
 	
+	float Degrees;
+
+public:
+	
+	RotationMatrixZ2D(const float& InDegrees) {Degrees = InDegrees;}
+	
+	FVector operator* (const FVector& Vec) const;
 };
 
 // struct Matrix

@@ -13,3 +13,15 @@ FVector ProjectionMatrix2D::operator*(const FVector& Vec) const
 {
 	return ProjectionMatrix * Vec;
 }
+
+FVector RotationMatrixZ2D::operator*(const FVector& Vec) const
+{
+	float Radians = FMath::DegreesToRadians(Degrees);
+
+	Matrix2D RotMat{
+		FMath::Cos(Radians), -FMath::Sin(Radians), 0,
+		FMath::Sin(Radians),  FMath::Cos(Radians), 0
+	};
+
+	return RotMat * Vec;
+}

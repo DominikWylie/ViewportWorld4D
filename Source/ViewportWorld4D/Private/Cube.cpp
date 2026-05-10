@@ -8,7 +8,7 @@
 
 ACube::ACube()
 {
-	// PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = true;
 	
 	USceneComponent* DedicatedRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DedicatedRoot"));
 	RootComponent = DedicatedRoot;
@@ -42,8 +42,11 @@ void ACube::BeginPlay()
 
 	InitCubePositions();
 
+	
+
 	for (uint8 i = 0; i < Points.Num(); i++)
 	{
+		//PointPositions[i] = ProjectionMatrix2D() * PointPositions[i];
 		Points[i]->SetVariableVec3(FName("User.Particles_Position"), (ProjectionMatrix2D() * PointPositions[i]));
 	}
 
@@ -78,4 +81,18 @@ void ACube::InitCubePositions()
 	//
 	// Wire[0]->SetVariableVec3(FName("User.BeamStart"), FVector(-Unit, Unit, -Unit));
 	// Wire[0]->SetVariableVec3(FName("User.BeamEnd"), FVector(Unit, Unit, -Unit));
+}
+
+void ACube::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+
+	Degrees += RotationSpeed * DeltaTime;
+
+	for (uint8 i = 0; i < Points.Num(); i++)
+	{
+		//PointPositions[i] = ProjectionMatrix2D() * PointPositions[i];
+		Points[i]->SetVariableVec3(FName("User.Particles_Position"), (RotationMatrixZ2D(Degrees) * PointPositions[i]));
+	}
 }
